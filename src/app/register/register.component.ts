@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
-import { AlertService, UserService, AuthenticationService } from '@/_services';
+import { AlertService, UserService, AuthenticationService } from '@app/_services';
 
 @Component({ templateUrl: 'register.component.html' })
 export class RegisterComponent implements OnInit {
@@ -29,7 +29,8 @@ export class RegisterComponent implements OnInit {
             firstName: ['', Validators.required],
             lastName: ['', Validators.required],
             username: ['', Validators.required],
-            password: ['', [Validators.required, Validators.minLength(6)]]
+            password: ['', [Validators.required, Validators.minLength(6)]],
+            role: ['candidateRole', [Validators.required]]
         });
     }
 
@@ -48,6 +49,7 @@ export class RegisterComponent implements OnInit {
         }
 
         this.loading = true;
+        
         this.userService.register(this.registerForm.value)
             .pipe(first())
             .subscribe(
